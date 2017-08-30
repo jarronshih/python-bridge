@@ -25,5 +25,5 @@ deploy:
     secure: PLEASE_REPLACE_ME
   on:
     tags: true
-    repo: jarronshih/bridge
+    repo: jarronshih/python-bridge
     python: 2.7

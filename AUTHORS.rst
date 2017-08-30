@@ -6,6 +6,7 @@ Development Lead
 ----------------
 
 * Jarron Shih <jarronshih@gmail.com>
+* wkc
 
 Contributors
 ------------

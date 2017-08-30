@@ -33,7 +33,7 @@ setup(
     long_description=readme + '\n\n' + history,
     author="Jarron Shih",
     author_email='jarronshih@gmail.com',
-    url='https://github.com/jarronshih/bridge',
+    url='https://github.com/jarronshih/python-bridge',
     packages=find_packages(include=['bridge']),
     entry_points={
         'console_scripts': [

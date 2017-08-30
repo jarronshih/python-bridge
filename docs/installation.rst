@@ -32,13 +32,13 @@ You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git://github.com/jarronshih/bridge
+    $ git clone git://github.com/jarronshih/python-bridge
 
 Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl  -OL https://github.com/jarronshih/bridge/tarball/master
+    $ curl  -OL https://github.com/jarronshih/python-bridge/tarball/master
 
 Once you have a copy of the source, you can install it with:
 
@@ -47,5 +47,5 @@ Once you have a copy of the source, you can install it with:
     $ python setup.py install
 
 
-.. _Github repo: https://github.com/jarronshih/bridge
-.. _tarball: https://github.com/jarronshih/bridge/tarball/master
+.. _Github repo: https://github.com/jarronshih/python-bridge
+.. _tarball: https://github.com/jarronshih/python-bridge/tarball/master

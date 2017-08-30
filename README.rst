@@ -6,15 +6,15 @@ Python Bridge
 .. image:: https://img.shields.io/pypi/v/bridge.svg
         :target: https://pypi.python.org/pypi/bridge
 
-.. image:: https://img.shields.io/travis/jarronshih/bridge.svg
-        :target: https://travis-ci.org/jarronshih/bridge
+.. image:: https://img.shields.io/travis/jarronshih/python-bridge.svg
+        :target: https://travis-ci.org/jarronshih/python-bridge
 
 .. image:: https://readthedocs.org/projects/bridge/badge/?version=latest
         :target: https://bridge.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-.. image:: https://pyup.io/repos/github/jarronshih/bridge/shield.svg
-     :target: https://pyup.io/repos/github/jarronshih/bridge/
+.. image:: https://pyup.io/repos/github/jarronshih/python-bridge/shield.svg
+     :target: https://pyup.io/repos/github/jarronshih/python-bridge/
      :alt: Updates
 
 
