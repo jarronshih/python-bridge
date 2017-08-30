@@ -3,7 +3,7 @@ Python Bridge
 =============
 
 
-.. image:: https://img.shields.io/pypi/v/bridge.svg
+.. image:: https://img.shields.io/pypi/v/python-bridge.svg
         :target: https://pypi.python.org/pypi/bridge
 
 .. image:: https://img.shields.io/travis/jarronshih/python-bridge.svg
