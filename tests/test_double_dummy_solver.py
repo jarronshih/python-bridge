@@ -1,9 +1,9 @@
-# import pytest
+import pytest
 from bridge.double_dummy_solver import double_dummy_solver
 from bridge.models import Board, Trump, Player, Card, CardSuit, CardRank
 
 
-# @pytest.mark.xfail
+@pytest.mark.xfail
 def test_double_dummy_solver():
     board = Board(
         north=[Card(CardSuit.SPADE, CardRank.ACE)],

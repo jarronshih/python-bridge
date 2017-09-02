@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from enum import Enum, unique, auto
+from enum import Enum, IntEnum, unique, auto
 from collections import namedtuple
 
 
@@ -15,7 +15,7 @@ class CardSuit(Enum):
 
 
 @unique
-class CardRank(Enum):
+class CardRank(IntEnum):
     ACE = 14
     KING = 13
     QUEEN = 12
@@ -58,24 +58,23 @@ class Player(Enum):
     EAST = 'E'
     WEST = 'W'
 
-    @classmethod
-    def next_player(cls, player):
+    def next_player(self):
         next_player = {
-            cls.NORTH: cls.EAST,
-            cls.EAST: cls.SOUTH,
-            cls.SOUTH: cls.WEST,
-            cls.WEST: cls.NORTH
+            self.NORTH: self.EAST,
+            self.EAST: self.SOUTH,
+            self.SOUTH: self.WEST,
+            self.WEST: self.NORTH
         }
-        return next_player[player]
+        return next_player[self]
 
 
 @unique
 class Trump(Enum):
     NO_TRUMP = auto()
-    SPADE = auto()
-    HEADT = auto()
-    DIAMOND = auto()
-    CLUB = auto()
+    SPADE = CardSuit.SPADE
+    HEADT = CardSuit.HEART
+    DIAMOND = CardSuit.DIAMOND
+    CLUB = CardSuit.CLUB
 
 
 class Hand:
@@ -88,14 +87,36 @@ class Board(namedtuple('Card', ['north', 'east', 'south', 'west'])):
 
 
 class Trick:
-    def __init__(self):
-        self.trick = []
-
-    def set_trump(self, suit):
-        pass
+    def __init__(self, trump, starting_player):
+        self.trick = {}
+        self.current_player = starting_player
+        self.trump = trump
+        self.winner = None
 
     def play_card(self, card):
-        pass
+        self.trick[self.current_player] = card
+
+        if self.compare(card):
+            self.winner = self.current_player
+
+        self.current_player = self.current_player.next_player()
+
+        if len(self.trick) == 4:
+            return self.winner
+        else:
+            return None
+
+    def compare(self, card):
+        if self.winner is None:
+            return True
+
+        current_card = self.trick[self.winner]
+        if card.suit == current_card.suit:
+            return card.rank > current_card.rank
+        elif card.suit == self.trump:
+            return True
+        else:
+            return False
 
 
 class GameState:
