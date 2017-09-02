@@ -70,7 +70,7 @@ class Player(Enum):
 
 @unique
 class Trump(Enum):
-    NO_TRUMP = auto()
+    NO_TRUMP = 'NT'
     SPADE = CardSuit.SPADE
     HEADT = CardSuit.HEART
     DIAMOND = CardSuit.DIAMOND
@@ -80,6 +80,7 @@ class Trump(Enum):
 class Hand:
     def __init__(self, cards=None):
         self.cards = cards
+        self.played = []
 
 
 class Board(namedtuple('Card', ['north', 'east', 'south', 'west'])):
