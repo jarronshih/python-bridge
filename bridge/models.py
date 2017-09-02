@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from enum import Enum, IntEnum, unique, auto
+from enum import Enum, IntEnum, unique
 from collections import namedtuple
 
 
