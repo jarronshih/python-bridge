@@ -60,10 +60,10 @@ class Player(Enum):
 
     def next_player(self):
         next_player = {
-            self.NORTH: self.EAST,
-            self.EAST: self.SOUTH,
-            self.SOUTH: self.WEST,
-            self.WEST: self.NORTH
+            Player.NORTH: Player.EAST,
+            Player.EAST: Player.SOUTH,
+            Player.SOUTH: Player.WEST,
+            Player.WEST: Player.NORTH
         }
         return next_player[self]
 
