@@ -79,9 +79,43 @@ class Trump(Enum):
 
 class Hand:
     def __init__(self, cards=None):
-        self.cards = cards
+        self.cards = {};
+        for card_suit in CardSuit:
+            self.cards[card_suit] = [];
+        for card in cards:
+            self.add_card(card);
         self.played = []
-
+        
+    def add_card(self, card):
+        self.cards[card.suit].append(card);
+        sorted(self.cards[card.suit], key=lambda x:x.rank.value);
+    
+    def play_card(self, index, suit=None):
+        if suit is not None and len(self.cards[suit]) > 0:
+            if index >= len(self.card[suit]):
+                return None;
+            else:
+                card_playing = self.card[suit].pop(index);
+                self.played.append(card_playing);
+                return card_playing;
+        else:
+            cards_flatten = self._flatten_cards_list();
+            if index >= len(cards_flatten):
+                return None;
+            else:
+                card_playing = cards_flatten.pop(index);
+                self.cards[card_playing.suit].remove(card_playing);
+                self.played.append(card_playing);
+                return card_playing;
+    
+    def reverse(self):
+        self.add_card(self.played.pop());
+        
+    def _flatten_cards_list(self):
+        cards_flatten = [];
+        for card_suit in CardSuit:
+            cards_flatten.extend(self.cards[card_list]);
+        return cards_flatten;
 
 class Board(namedtuple('Card', ['north', 'east', 'south', 'west'])):
     __slots__ = ()
