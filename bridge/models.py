@@ -3,6 +3,7 @@ from enum import Enum, IntEnum, unique
 from collections import namedtuple, defaultdict
 import itertools
 from copy import deepcopy
+from operator import attrgetter
 
 @unique
 class CardSuit(Enum):
