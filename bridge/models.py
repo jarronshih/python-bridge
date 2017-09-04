@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from enum import Enum, IntEnum, unique
-from collections import namedtuple
-
+from collections import namedtuple, defaultdict
+import itertools
+from copy import deepcopy
+from operator import attrgetter
 
 @unique
 class CardSuit(Enum):
@@ -78,10 +80,29 @@ class Trump(Enum):
 
 
 class Hand:
-    def __init__(self, cards=None):
-        self.cards = cards
+    def __init__(self, cards=[]):
+        self.cards = defaultdict(list);
+        for card in cards:
+            self.add_card(card);
         self.played = []
-
+        
+    def add_card(self, card):
+        self.cards[card.suit].append(card);
+        sorted(self.cards[card.suit], key=attrgetter('rank'))
+    
+    def candidate_cards(self, suit=None):
+        if suit is not None and len(self.cards[suit]) > 0:
+            return deepcopy(self.cards[suit]);
+        else:
+            candidates = list(itertools.chain.from_iterable(self.cards.values()));
+            return deepcopy(candidates);
+    
+    def play_card(self, card):
+        self.cards[card.suit].remove(card);
+        self.played.append(card);
+    
+    def reverse(self):
+        self.add_card(self.played.pop());
 
 class Board(namedtuple('Card', ['north', 'east', 'south', 'west'])):
     __slots__ = ()
