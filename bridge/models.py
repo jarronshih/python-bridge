@@ -80,7 +80,7 @@ class Trump(Enum):
 
 
 class Hand:
-    def __init__(self, cards=None):
+    def __init__(self, cards=[]):
         self.cards = defaultdict(list);
         for card in cards:
             self.add_card(card);
