@@ -32,7 +32,7 @@ def test_Hand():
     assert candidates[2] == Card(CardSuit.HEART, CardRank.ACE);
     
     candidates = hand.candidate_cards(CardSuit.SPADE);
-    assert len(candidate) == 2;
+    assert len(candidates) == 2;
     assert candidates[1] == Card(CardSuit.SPADE, CardRank.KING);
     
     candidates = hand.candidate_cards(CardSuit.CLUB);
