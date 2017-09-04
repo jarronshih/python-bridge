@@ -5,6 +5,7 @@ import itertools
 from copy import deepcopy
 from operator import attrgetter
 
+
 @unique
 class CardSuit(Enum):
     SPADE = '♠'
@@ -81,28 +82,29 @@ class Trump(Enum):
 
 class Hand:
     def __init__(self, cards=[]):
-        self.cards = defaultdict(list);
+        self.cards = defaultdict(list)
         for card in cards:
-            self.add_card(card);
+            self.add_card(card)
         self.played = []
-        
+
     def add_card(self, card):
-        self.cards[card.suit].append(card);
+        self.cards[card.suit].append(card)
         sorted(self.cards[card.suit], key=attrgetter('rank'))
-    
+
     def candidate_cards(self, suit=None):
         if suit is not None and len(self.cards[suit]) > 0:
-            return deepcopy(self.cards[suit]);
+            return deepcopy(self.cards[suit])
         else:
-            candidates = list(itertools.chain.from_iterable(self.cards.values()));
-            return deepcopy(candidates);
-    
+            candidates = list(itertools.chain.from_iterable(self.cards.values()))
+            return deepcopy(candidates)
+
     def play_card(self, card):
-        self.cards[card.suit].remove(card);
-        self.played.append(card);
-    
+        self.cards[card.suit].remove(card)
+        self.played.append(card)
+
     def reverse(self):
-        self.add_card(self.played.pop());
+        self.add_card(self.played.pop())
+
 
 class Board(namedtuple('Card', ['north', 'east', 'south', 'west'])):
     __slots__ = ()
