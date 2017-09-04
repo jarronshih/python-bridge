@@ -87,7 +87,7 @@ class Hand:
         
     def add_card(self, card):
         self.cards[card.suit].append(card);
-        sorted(self.cards[card.suit], key=lambda x:x.rank.value);
+        sorted(seq, key=attrgetter('rank'))
     
     def play_card(self, index, suit=None):
         if suit is not None and len(self.cards[suit]) > 0:
