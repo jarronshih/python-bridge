@@ -103,7 +103,12 @@ class Hand:
                 return None;
             else:
                 card_playing = cards_flatten.pop(index);
+                play_card(card_playing);
                 return card_playing;
+    
+    def play_card(self, card):
+        self.cards[card.suit].remove(card);
+        self.played.append(card);
     
     def reverse(self):
         self.add_card(self.played.pop());
