@@ -114,7 +114,7 @@ class Hand:
     def _flatten_cards_list(self):
         cards_flatten = [];
         for card_suit in CardSuit:
-            cards_flatten.extend(self.cards[card_list]);
+            cards_flatten.extend(self.cards[card_suit]);
         return cards_flatten;
 
 class Board(namedtuple('Card', ['north', 'east', 'south', 'west'])):
