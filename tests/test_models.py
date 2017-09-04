@@ -21,12 +21,6 @@ def test_trick():
     assert trick.winner == Player.WEST
 
 
-def test_Hand_empty():
-    hand = Hand()
-    candidates = hand.candidate_cards()
-    assert len(candidates) == 0
-
-
 def test_Hand():
     SA = Card(CardSuit.SPADE, CardRank.ACE)
     SK = Card(CardSuit.SPADE, CardRank.KING)
@@ -34,6 +28,7 @@ def test_Hand():
     DA = Card(CardSuit.DIAMOND, CardRank.ACE)
     hand = Hand(cards=[SA, SK, HA, DA])
 
+    # function candidate_cards
     candidates = hand.candidate_cards()
     assert len(candidates) == 4
 
@@ -49,12 +44,20 @@ def test_Hand():
     candidates = hand.candidate_cards(CardSuit.CLUB)
     assert len(candidates) == 4
 
-    hand.play_card(Card(CardSuit.HEART, CardRank.ACE))
+    # function play_card
+    hand.play_card(HA)
     candidates = hand.candidate_cards(CardSuit.HEART)
-    assert Card(CardSuit.HEART, CardRank.ACE) not in candidates
+    assert HA not in candidates
     assert len(candidates) == 3
 
+    # function reverse
     hand.reverse()
     candidates = hand.candidate_cards(CardSuit.HEART)
     assert len(candidates) == 1
-    assert Card(CardSuit.HEART, CardRank.ACE) in candidates
+    assert HA in candidates
+
+
+def test_Hand_empty():
+    hand = Hand()
+    candidates = hand.candidate_cards()
+    assert len(candidates) == 0
