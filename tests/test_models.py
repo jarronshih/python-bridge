@@ -47,7 +47,7 @@ def test_Hand():
     assert len(hand.cards[CardSuit.SPADE]) == 1;
     hand.reverse();
     assert len(hand.cards[CardSuit.SPADE]) == 2;
-    assert hand.cards[CardSuit.SPADE].index(0).rank == CardRank.ACE;
+    assert (hand.cards[CardSuit.SPADE])[0].rank == CardRank.ACE;
     
     assert len(hand.cards[CardSuit.HEART]) == 0;
     hand.reverse();
