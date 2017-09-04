@@ -28,21 +28,20 @@ def test_Hand():
     
     candidates = hand.candidate_cards();
     assert len(candidates) == 4;
-    assert candidates[1] == Card(CardSuit.SPADE, CardRank.KING);
-    assert candidates[2] == Card(CardSuit.HEART, CardRank.ACE);
     
     candidates = hand.candidate_cards(CardSuit.SPADE);
     assert len(candidates) == 2;
-    assert candidates[1] == Card(CardSuit.SPADE, CardRank.KING);
     
     candidates = hand.candidate_cards(CardSuit.CLUB);
     assert len(candidates) == 4;
     
     hand.play_card(Card(CardSuit.HEART, CardRank.ACE));
     candidates = hand.candidate_cards(CardSuit.HEART);
+    assert Card(CardSuit.HEART, CardRank.ACE) not in candidates;
     assert len(candidates) == 3;
     
     hand.reverse();
     candidates = hand.candidate_cards(CardSuit.HEART);
     assert len(candidates) == 1;
+    assert Card(CardSuit.HEART, CardRank.ACE) in candidates;
     
