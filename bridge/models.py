@@ -92,10 +92,10 @@ class Hand:
     
     def play_card(self, index, suit=None):
         if suit is not None and len(self.cards[suit]) > 0:
-            if index >= len(self.card[suit]):
+            if index >= len(self.cards[suit]):
                 return None;
             else:
-                card_playing = self.card[suit].pop(index);
+                card_playing = self.cards[suit].pop(index);
                 self.played.append(card_playing);
                 return card_playing;
         else:
