@@ -27,7 +27,7 @@ def test_Hand():
                        Card(CardSuit.SPADE, CardRank.KING)]);
     
     candidates = hand.candidate_cards();
-    assert len(candidate) == 4;
+    assert len(candidates) == 4;
     assert candidates[1] == Card(CardSuit.SPADE, CardRank.KING);
     assert candidates[2] == Card(CardSuit.HEART, CardRank.ACE);
     
