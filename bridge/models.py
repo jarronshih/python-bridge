@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from enum import Enum, IntEnum, unique
 from collections import namedtuple
+from _collections import defaultdict
 
 
 @unique
@@ -79,9 +80,7 @@ class Trump(Enum):
 
 class Hand:
     def __init__(self, cards=None):
-        self.cards = {};
-        for card_suit in CardSuit:
-            self.cards[card_suit] = [];
+        self.cards = defaultdict(list);
         for card in cards:
             self.add_card(card);
         self.played = []
