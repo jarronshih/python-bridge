@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from enum import Enum, IntEnum, unique
-from collections import namedtuple
-from _collections import defaultdict
-
+from collections import namedtuple, defaultdict
+import itertools
 
 @unique
 class CardSuit(Enum):
@@ -87,7 +86,7 @@ class Hand:
         
     def add_card(self, card):
         self.cards[card.suit].append(card);
-        sorted(seq, key=attrgetter('rank'))
+        sorted(self.cards[card.suit], key=attrgetter('rank'))
     
     def action(self, index, suit=None):
         if suit is not None and len(self.cards[suit]) > 0:
