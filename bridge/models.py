@@ -2,6 +2,7 @@
 from enum import Enum, IntEnum, unique
 from collections import namedtuple, defaultdict
 import itertools
+from copy import deepcopy
 
 @unique
 class CardSuit(Enum):
@@ -88,22 +89,11 @@ class Hand:
         self.cards[card.suit].append(card);
         sorted(self.cards[card.suit], key=attrgetter('rank'))
     
-    def action(self, index, suit=None):
+    def candidate_cards(self, suit=None):
         if suit is not None and len(self.cards[suit]) > 0:
-            if index >= len(self.cards[suit]):
-                return None;
-            else:
-                card_playing = (self.cards[suit])[index];
-                play_card(card_playing);
-                return card_playing;
+            return deepcopy(self.card[suit]);
         else:
-            cards_flatten = itertools.chain.from_iterable(self.cards.values());
-            if index >= len(cards_flatten):
-                return None;
-            else:
-                card_playing = cards_flatten.pop(index);
-                play_card(card_playing);
-                return card_playing;
+            return deepcopy(itertools.chain.from_iterable(self.cards.values()));
     
     def play_card(self, card):
         self.cards[card.suit].remove(card);

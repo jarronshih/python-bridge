@@ -26,29 +26,23 @@ def test_Hand():
                        Card(CardSuit.DIAMOND, CardRank.ACE),
                        Card(CardSuit.SPADE, CardRank.KING)]);
     
-    card = hand.play_card(4);
-    assert card is None;
+    candidates = hand.candidate_cards();
+    assert len(candidate) == 4;
+    assert candidates[1] == Card(CardSuit.SPADE, CardRank.KING);
+    assert candidates[2] == Card(CardSuit.HEART, CardRank.ACE);
     
-    card = hand.play_card(2, CardSuit.SPADE);
-    assert card is None;
+    candidates = hand.candidate_cards(CardSuit.SPADE);
+    assert len(candidate) == 2;
+    assert candidates[1] == Card(CardSuit.SPADE, CardRank.KING);
     
-    card = hand.play_card(1, CardSuit.DIAMOND);
-    assert card is None;
+    candidates = hand.candidate_cards(CardSuit.CLUB);
+    assert len(candidates) == 4;
     
-    card = hand.play_card(2)
-    assert card == Card(CardSuit.HEART, CardRank.ACE);
-    card = hand.play_card(1, CardSuit.SPADE);
-    assert card == Card(CardSuit.SPADE, CardRank.KING);
-    card = hand.play_card(0, CardSuit.CLUB);
-    assert card == Card(CardSuit.SPADE, CardRank.ACE);
+    hand.play_card(Card(CardSuit.HEART, CardRank.ACE));
+    candidates = hand.candidate_cards(CardSuit.HEART);
+    assert len(candidates) == 3;
     
-    assert len(hand.cards[CardSuit.SPADE]) == 0;
     hand.reverse();
-    assert len(hand.cards[CardSuit.SPADE]) == 1;
-    hand.reverse();
-    assert len(hand.cards[CardSuit.SPADE]) == 2;
-    assert (hand.cards[CardSuit.SPADE])[0].rank == CardRank.ACE;
+    candidates = hand.candidate_cards(CardSuit.HEART);
+    assert len(candidates) == 1;
     
-    assert len(hand.cards[CardSuit.HEART]) == 0;
-    hand.reverse();
-    assert len(hand.cards[CardSuit.HEART]) == 1;
