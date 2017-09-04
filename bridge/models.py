@@ -94,7 +94,8 @@ class Hand:
         if suit is not None and len(self.cards[suit]) > 0:
             return deepcopy(self.card[suit]);
         else:
-            return deepcopy(itertools.chain.from_iterable(self.cards.values()));
+            candidates = list(itertools.chain.from_iterable(self.cards.values()));
+            return deepcopy(candidates);
     
     def play_card(self, card):
         self.cards[card.suit].remove(card);
