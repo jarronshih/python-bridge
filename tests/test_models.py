@@ -1,3 +1,4 @@
+import pytest
 from bridge.models import Trick, Trump, Player, Card, CardSuit, CardRank, Hand
 
 
@@ -61,3 +62,9 @@ def test_Hand_empty():
     hand = Hand()
     candidates = hand.candidate_cards()
     assert len(candidates) == 0
+
+    with pytest.raises(ValueError):
+        hand.play_card(Card(CardSuit.SPADE, CardRank.ACE))
+
+    with pytest.raises(IndexError):
+        hand.reverse()
