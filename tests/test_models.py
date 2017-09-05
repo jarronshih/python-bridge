@@ -68,3 +68,10 @@ def test_Hand_empty():
 
     with pytest.raises(IndexError):
         hand.reverse()
+
+
+@pytest.mark.xfail
+def test_Hand_duplicate_card():
+    with pytest.raises(ValueError):
+        SA = Card(CardSuit.SPADE, CardRank.ACE)
+        hand = Hand(cards=[SA, SA])
