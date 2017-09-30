@@ -70,6 +70,14 @@ class Player(Enum):
         }
         return next_player[self]
 
+    def previous_player(self):
+        next_player = {
+            Player.NORTH: Player.WEST,
+            Player.EAST: Player.NORTH,
+            Player.SOUTH: Player.EAST,
+            Player.WEST: Player.SOUTH
+        }
+        return next_player[self]
 
 @unique
 class Trump(Enum):
@@ -147,6 +155,34 @@ class GameState:
     def __init__(self, board, trump, starting_player, goal):
         self.board = board
         self.trump = trump
+        self.previous_player = None
         self.next_player = starting_player
-        self.current_trick = None
+        self.previous_tricks = []
+        self.current_trick = Trick(trump, starting_player)
         self.ns_trick_count = 0
+    
+    def candidate_card(self):
+        if current_trick is None:
+            return self.board[self.starting_player].candidate_card()
+        else:
+            current_suit = self.current_trick[0].suit;
+            return self.board[self.starting_Player].candidate_card(current_suit)
+    
+    def play_card(self, card):
+        self.board[self.starting_player].play_card(card)
+        self.previous_player = next_player
+        
+        trick_winner = self.current_trick.play_card(card)
+        if trick_winner is None:
+            self.next_player = self.next_player.next_player()
+        else:
+            self.next_player = trick_winner
+            self.previous_tricks.append(self.current_trick)
+            self.current_trick = Trick(self.trump, trick_winner)
+            if trick_winner == Player.NORTH or trick_winner == Player.SOUTH:
+                self.ns_trick_count += 1
+        
+    def reverse(self):
+        if len(self.current_trick.trick) != 0:
+            
+    
