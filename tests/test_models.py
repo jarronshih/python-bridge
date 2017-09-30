@@ -1,5 +1,5 @@
 import pytest
-from bridge.models import Trick, Trump, Player, Card, CardSuit, CardRank, Hand
+from bridge.models import Trick, Trump, Player, Card, CardSuit, CardRank, Hand, Board
 
 
 def test_trick():
@@ -75,3 +75,20 @@ def test_Hand_duplicate_card():
     with pytest.raises(ValueError):
         SA = Card(CardSuit.SPADE, CardRank.ACE)
         hand = Hand(cards=[SA, SA])
+
+
+def test_Board():
+    SA = Card(CardSuit.SPADE, CardRank.ACE)
+    SK = Card(CardSuit.SPADE, CardRank.KING)
+    HA = Card(CardSuit.HEART, CardRank.ACE)
+    DA = Card(CardSuit.DIAMOND, CardRank.ACE)
+    north = Hand([SA])
+    south = Hand([SK])
+    east = Hand([HA])
+    west = Hand([DA])
+
+    board = Board(north=north, south=south, east=east, west=west)
+    assert north == board.get_hand(Player.NORTH)
+    assert south == board.get_hand(Player.SOUTH)
+    assert east == board.get_hand(Player.EAST)
+    assert west == board.get_hand(Player.WEST)
