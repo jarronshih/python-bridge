@@ -106,8 +106,18 @@ class Hand:
         self.add_card(self.played.pop())
 
 
-class Board(namedtuple('Card', ['north', 'east', 'south', 'west'])):
+class Board(namedtuple('Board', ['north', 'east', 'south', 'west'])):
     __slots__ = ()
+
+    def get_hand(self, player):
+        player_hands = {
+            Player.NORTH: self.north,
+            Player.SOUTH: self.south,
+            Player.EAST: self.east,
+            Player.WEST: self.west
+        }
+        if player in player_hands:
+            return player_hands[player]
 
 
 class Trick:
