@@ -98,6 +98,7 @@ class Player(Enum):
         }
         return next_player[self]
 
+
 @unique
 class Trump(Enum):
     NO_TRUMP = 'NT'
@@ -181,10 +182,10 @@ class Trick:
         if len(self.trick) == 4:
             win_card = None
             winner = None
-            current_player = self.starting_player 
+            current_player = self.starting_player
             for card in self.trick:
                 win_card, winner = self.compare(win_card, winner, card, current_player)
-                current_player = current_player.next_player() 
+                current_player = current_player.next_player()
             return winner
         else:
             return None
@@ -202,18 +203,19 @@ class Trick:
             return card, player
         else:
             return win_card, winner
-        
+
     def trick_suit(self):
         if len(self.trick) == 0:
             return None
         else:
             return self.trick[0].suit
-        
+
     def step_back(self):
         if len(self.trick) == 0:
             return None
         else:
             return self.trick.pop()
+
 
 class GameState:
     def __init__(self, board, trump, starting_player):
@@ -223,14 +225,14 @@ class GameState:
         self.previous_tricks = []
         self.current_trick = Trick(trump, starting_player)
         self.ns_trick_count = 0
-    
+
     def candidate_cards(self):
         current_suit = self.current_trick.trick_suit()
         return self.board.get_hand(self.next_player).candidate_cards(current_suit)
-    
+
     def play_card(self, card):
         self.board.get_hand(self.next_player).play_card(card)
-        
+
         trick_winner = self.current_trick.play_card(card)
         if trick_winner is None:
             self.next_player = self.next_player.next_player()
@@ -240,7 +242,7 @@ class GameState:
             self.current_trick = Trick(self.trump, trick_winner)
             if trick_winner == Player.NORTH or trick_winner == Player.SOUTH:
                 self.ns_trick_count += 1
-        
+
     def step_back(self):
         last_card = self.current_trick.step_back()
         if last_card is None:
@@ -249,8 +251,6 @@ class GameState:
                 self.ns_trick_count -= 1
             self.next_player = self.current_trick.starting_player.previous_player()
             last_card = self.current_trick.step_back()
-        else: 
+        else:
             self.next_player = self.next_player.previous_player()
         self.board.get_hand(self.next_player).add_card(last_card)
-            
-    

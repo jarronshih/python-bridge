@@ -19,13 +19,13 @@ def test_trick():
 
     card = trick.step_back()
     assert card == Card(CardSuit.SPADE, CardRank.THREE)
-    
+
     card = trick.step_back()
     assert card == Card(CardSuit.SPADE, CardRank.ACE)
-    
+
     t = trick.play_card(Card(CardSuit.HEART, CardRank.ACE))
     assert t is None
-    
+
     t = trick.play_card(Card(CardSuit.HEART, CardRank.KING))
     assert t is Player.EAST
 

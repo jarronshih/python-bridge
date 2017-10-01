@@ -20,7 +20,6 @@ def test_double_dummy_solver():
     assert double_dummy_solver(board, trump, starting_player) == result
 
 
-
 def test_gib2():
     """
     Testcase from https://github.com/dds-bridge/ddd/blob/develop/test.gib
