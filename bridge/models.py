@@ -46,6 +46,25 @@ class CardRank(IntEnum):
         except KeyError:
             return str(self.value)
 
+    @classmethod
+    def string_to_rank(cls, card_string):
+        rank_map = {
+            'A': CardRank.ACE,
+            'K': CardRank.KING,
+            'Q': CardRank.QUEEN,
+            'J': CardRank.JACK,
+            'T': CardRank.TEN,
+            '9': CardRank.NINE,
+            '8': CardRank.EIGHT,
+            '7': CardRank.SEVEN,
+            '6': CardRank.SIX,
+            '5': CardRank.FIVE,
+            '4': CardRank.FOUR,
+            '3': CardRank.THREE,
+            '2': CardRank.TWO
+        }
+        return rank_map[card_string.upper()]
+
 
 class Card(namedtuple('Card', ['suit', 'rank'])):
     __slot__ = ()
@@ -126,6 +145,28 @@ class Board(namedtuple('Board', ['north', 'east', 'south', 'west'])):
         }
         if player in player_hands:
             return player_hands[player]
+
+    @classmethod
+    def create_from_gib(cls, gib_string):
+        """
+        W N E S
+        """
+        def gib_to_hand(gib_hand):
+            cards = []
+
+            for suit, suit_cards in zip([CardSuit.SPADE, CardSuit.HEART, CardSuit.DIAMOND, CardSuit.CLUB], gib_hand.split('.')):
+                for card in suit_cards:
+                    cards.append(Card(suit=suit, rank=CardRank.string_to_rank(card)))
+
+            return Hand(cards)
+
+        gib_hands = gib_string.split(' ')
+        return Board(
+            west=gib_to_hand(gib_hands[0]),
+            north=gib_to_hand(gib_hands[1]),
+            east=gib_to_hand(gib_hands[2]),
+            south=gib_to_hand(gib_hands[3])
+        )
 
 
 class Trick:
