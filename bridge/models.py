@@ -9,8 +9,8 @@ from operator import attrgetter
 @unique
 class CardSuit(Enum):
     SPADE = '♠'
-    HEART = '♡'
-    DIAMOND = '♢'
+    HEART = '♥'
+    DIAMOND = '♦'
     CLUB = '♣'
 
     def __str__(self):
@@ -70,7 +70,10 @@ class Card(namedtuple('Card', ['suit', 'rank'])):
     __slot__ = ()
 
     def __repr__(self):
-        return '<{}({}{})>'.format(self.__class__.__name__, self.suit, self.rank)
+        return '<{}{}>'.format(self.__class__.__name__, self.suit, self.rank)
+
+    def __str__(self):
+        return '{}{}'.format(self.suit, self.rank)
 
 
 @unique
@@ -79,6 +82,9 @@ class Player(Enum):
     SOUTH = 'S'
     EAST = 'E'
     WEST = 'W'
+
+    def __repr__(self):
+        return '<{}:{}>'.format(self.__class__.__name__, self.value)
 
     def next_player(self):
         next_player = {
@@ -107,6 +113,9 @@ class Trump(Enum):
     DIAMOND = CardSuit.DIAMOND
     CLUB = CardSuit.CLUB
 
+    def __repr__(self):
+        return '<{}:{}>'.format(self.__class__.__name__, self.value)
+
 
 class Hand:
     def __init__(self, cards=[]):
@@ -114,6 +123,20 @@ class Hand:
         for card in cards:
             self.add_card(card)
         self.played = []
+
+    def __repr__(self):
+        return '<{}:{}>'.format(self.__class__.__name__, self.__str__())
+
+    def __str__(self):
+        ret = []
+        for suit in [CardSuit.SPADE, CardSuit.HEART, CardSuit.DIAMOND, CardSuit.CLUB]:
+
+            if len(self.cards[suit]) == 0:
+                ret.append('{}-'.format(suit.value))
+            else:
+                ret.append('{}{}'.format(suit.value, ''.join(map(lambda c: str(c.rank), self.cards[suit]))))
+
+        return ' '.join(ret)
 
     def add_card(self, card):
         self.cards[card.suit].append(card)
