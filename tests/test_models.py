@@ -47,8 +47,8 @@ def test_Hand():
     assert HA not in candidates
     assert len(candidates) == 3
 
-    # function reverse
-    hand.reverse()
+    # function step_back
+    hand.step_back()
     candidates = hand.candidate_cards(CardSuit.HEART)
     assert len(candidates) == 1
     assert HA in candidates
@@ -63,7 +63,7 @@ def test_Hand_empty():
         hand.play_card(Card(CardSuit.SPADE, CardRank.ACE))
 
     with pytest.raises(IndexError):
-        hand.reverse()
+        hand.step_back()
 
 
 @pytest.mark.xfail

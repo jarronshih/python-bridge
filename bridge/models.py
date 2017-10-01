@@ -110,7 +110,7 @@ class Hand:
         self.cards[card.suit].remove(card)
         self.played.append(card)
 
-    def reverse(self):
+    def step_back(self):
         self.add_card(self.played.pop())
 
 
@@ -168,7 +168,7 @@ class Trick:
         else:
             return self.trick[0].suit
         
-    def reverse(self):
+    def step_back(self):
         if len(self.trick) == 0:
             return None
         else:
@@ -200,12 +200,12 @@ class GameState:
             if trick_winner == Player.NORTH or trick_winner == Player.SOUTH:
                 self.ns_trick_count += 1
         
-    def reverse(self):
-        last_card = self.current_trick.reverse()
+    def step_back(self):
+        last_card = self.current_trick.step_back()
         if last_card is None:
             self.current_trick = self.previous_tricks.pop()
             self.next_player = self.current_trick.starting_player.previous_player()
-            last_card = self.current_trick.reverse()
+            last_card = self.current_trick.step_back()
         else: 
             self.next_player = self.next_player.previous_player()
         self.next_player.add_card(last_card)

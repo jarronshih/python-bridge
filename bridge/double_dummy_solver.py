@@ -12,12 +12,12 @@ def double_dummy_solver_using_gameState(gameState):
         max_trick = 0
         for card in candidate_cards:
             max_trick = max(max_trick, gameState.play_card(card))
-            gameState.reverse()
+            gameState.step_back()
         return max_trick
     else:
         min_trick = 13
         for card in candidate_cards:
             min_trick = min(min_trick, gameState.play_card(card))
-            gameState.reverse()
+            gameState.step_back()
         return min_trick
     
