@@ -16,3 +16,19 @@ def test_double_dummy_solver():
     result = 1
 
     assert double_dummy_solver(board, trump, starting_player) == result
+
+
+@pytest.mark.xfail
+def test_gib2():
+    """
+    Testcase from https://github.com/dds-bridge/ddd/blob/develop/test.gib
+
+    {name=gib2
+       tricks: 1111 1111 1111 1111 1111 (max=2)
+    }
+    k9... jt... q...a a8...:--------------------
+    """
+
+    board = Board.create_from_gib('k9... jt... q...a a8...')
+
+    assert double_dummy_solver(board, Trump.NO_TRUMP, Player.EAST) == 1
