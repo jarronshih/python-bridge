@@ -24,7 +24,7 @@ class GameState:
             self.next_player = trick_winner
             self.previous_tricks.append(self.current_trick)
             self.current_trick = Trick(self.trump, trick_winner)
-            if trick_winner == Player.NORTH or trick_winner == Player.SOUTH:
+            if trick_winner in [Player.NORTH, Player.SOUTH]:
                 self.ns_trick_count += 1
 
     def step_back(self):

@@ -182,9 +182,6 @@ class Hand:
         self.cards[card.suit].remove(card)
         self.played.append(card)
 
-    def step_back(self):
-        self.add_card(self.played.pop())
-
 
 class Board(namedtuple('Board', ['north', 'east', 'south', 'west'])):
     __slots__ = ()

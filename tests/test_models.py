@@ -59,12 +59,6 @@ def test_Hand():
     assert HA not in candidates
     assert len(candidates) == 3
 
-    # function step_back
-    hand.step_back()
-    candidates = hand.candidate_cards(CardSuit.HEART)
-    assert len(candidates) == 1
-    assert HA in candidates
-
 
 def test_Hand_empty():
     hand = Hand()
@@ -74,15 +68,12 @@ def test_Hand_empty():
     with pytest.raises(ValueError):
         hand.play_card(Card(CardSuit.SPADE, CardRank.ACE))
 
-    with pytest.raises(IndexError):
-        hand.step_back()
-
 
 @pytest.mark.xfail
 def test_Hand_duplicate_card():
     with pytest.raises(ValueError):
         SA = Card(CardSuit.SPADE, CardRank.ACE)
-        hand = Hand(cards=[SA, SA])
+        Hand(cards=[SA, SA])
 
 
 def test_Trump_eq_CardSuit():
