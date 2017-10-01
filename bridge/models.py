@@ -111,10 +111,10 @@ class Player(Enum):
 class Trump(Enum):
     __order__ = 'NO_TRUMP SPADE HEART DIAMOND CLUB'
     NO_TRUMP = 'NT'
-    SPADE = CardSuit.SPADE
-    HEART = CardSuit.HEART
-    DIAMOND = CardSuit.DIAMOND
-    CLUB = CardSuit.CLUB
+    SPADE = CardSuit.SPADE.value
+    HEART = CardSuit.HEART.value
+    DIAMOND = CardSuit.DIAMOND.value
+    CLUB = CardSuit.CLUB.value
 
     def __repr__(self):
         return '<{}:{}>'.format(self.__class__.__name__, self.value)
