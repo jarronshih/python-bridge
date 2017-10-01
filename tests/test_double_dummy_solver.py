@@ -1,5 +1,3 @@
-import itertools
-
 import pytest
 from bridge.double_dummy_solver import double_dummy_solver
 from bridge.models import Board, Trump, Player, Card, CardSuit, CardRank
@@ -24,6 +22,8 @@ def test_gib2():
     """
     Testcase from https://github.com/dds-bridge/ddd/blob/develop/test.gib
     Define as https://github.com/dds-bridge/ddd/blob/develop/giblib.h
+        contracts n/s/h/d/c
+        leader s/e/n/w
 
     {name=gib2
        tricks: 1111 1111 1111 1111 1111 (max=2)
