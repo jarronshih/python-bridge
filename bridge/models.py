@@ -103,7 +103,7 @@ class Player(Enum):
 class Trump(Enum):
     NO_TRUMP = 'NT'
     SPADE = CardSuit.SPADE
-    HEADT = CardSuit.HEART
+    HEART = CardSuit.HEART
     DIAMOND = CardSuit.DIAMOND
     CLUB = CardSuit.CLUB
 
