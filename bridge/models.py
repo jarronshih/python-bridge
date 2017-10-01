@@ -224,9 +224,9 @@ class GameState:
         self.current_trick = Trick(trump, starting_player)
         self.ns_trick_count = 0
     
-    def candidate_card(self):
+    def candidate_cards(self):
         current_suit = self.current_trick.trick_suit()
-        return self.board.get_hand(self.next_player).candidate_card(current_suit)
+        return self.board.get_hand(self.next_player).candidate_cards(current_suit)
     
     def play_card(self, card):
         self.board.get_hand(self.next_player).play_card(card)
@@ -245,10 +245,12 @@ class GameState:
         last_card = self.current_trick.step_back()
         if last_card is None:
             self.current_trick = self.previous_tricks.pop()
+            if self.next_player == Player.NORTH or self.next_player == Player.SOUTH:
+                self.ns_trick_count -= 1
             self.next_player = self.current_trick.starting_player.previous_player()
             last_card = self.current_trick.step_back()
         else: 
             self.next_player = self.next_player.previous_player()
-        self.next_player.add_card(last_card)
+        self.board.get_hand(self.next_player).add_card(last_card)
             
     
