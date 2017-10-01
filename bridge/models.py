@@ -8,6 +8,7 @@ from operator import attrgetter
 
 @unique
 class CardSuit(Enum):
+    __order__ = 'SPADE HEART DIAMOND CLUB'
     SPADE = '♠'
     HEART = '♥'
     DIAMOND = '♦'
@@ -19,6 +20,7 @@ class CardSuit(Enum):
 
 @unique
 class CardRank(IntEnum):
+    __order__ = 'ACE KING QUEEN JACK TEN NINE EIGHT SEVEN SIX FIVE FOUR THREE TWO'
     ACE = 14
     KING = 13
     QUEEN = 12
@@ -107,6 +109,7 @@ class Player(Enum):
 
 @unique
 class Trump(Enum):
+    __order__ = 'NO_TRUMP SPADE HEART DIAMOND CLUB'
     NO_TRUMP = 'NT'
     SPADE = CardSuit.SPADE
     HEART = CardSuit.HEART
@@ -129,7 +132,7 @@ class Hand:
 
     def __str__(self):
         ret = []
-        for suit in [CardSuit.SPADE, CardSuit.HEART, CardSuit.DIAMOND, CardSuit.CLUB]:
+        for suit in CardSuit:
 
             if len(self.cards[suit]) == 0:
                 ret.append('{}-'.format(suit.value))
@@ -178,7 +181,7 @@ class Board(namedtuple('Board', ['north', 'east', 'south', 'west'])):
         def gib_to_hand(gib_hand):
             cards = []
 
-            for suit, suit_cards in zip([CardSuit.SPADE, CardSuit.HEART, CardSuit.DIAMOND, CardSuit.CLUB], gib_hand.split('.')):
+            for suit, suit_cards in zip(CardSuit, gib_hand.split('.')):
                 for card in suit_cards:
                     cards.append(Card(suit=suit, rank=CardRank.string_to_rank(card)))
 

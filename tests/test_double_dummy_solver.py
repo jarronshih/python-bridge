@@ -38,7 +38,7 @@ def test_gib2():
     for gib_string, gib_result in cases:
         board = Board.create_from_gib(gib_string)
 
-        for trump, trump_result in zip([Trump.NO_TRUMP, Trump.SPADE, Trump.HEART, Trump.DIAMOND, Trump.CLUB], gib_result.split(' ')):
+        for trump, trump_result in zip(Trump, gib_result.split(' ')):
             for leader, result_string in zip([Player.SOUTH, Player.EAST, Player.NORTH, Player.WEST], trump_result):
                 result = int(result_string, 16)
                 assert double_dummy_solver(board, trump, leader) == result
