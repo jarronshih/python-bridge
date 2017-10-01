@@ -23,6 +23,7 @@ setup_requirements = [
 
 test_requirements = [
     'pytest',
+    'pytest-profiling'
     # TODO: put package test requirements here
 ]
 

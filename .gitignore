@@ -65,3 +65,7 @@ target/
 .project
 .pydevproject
 *.prefs
+
+
+# remove cProfile
+prof/*

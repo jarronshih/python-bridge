@@ -108,6 +108,26 @@ Before you submit a pull request, check that it meets these guidelines:
 Tips
 ----
 
+We use tox and py.test as unittest framework::
+
+$ tox -e py36
+
+
+Go into the shell::
+
+$ source .tox/py36/bin/activate
+
+
 To run a subset of tests::
 
 $ py.test tests.test_bridge
+
+
+To run a cProfile::
+
+$ py.test tests/test_double_dummy_solver.py --profile
+
+
+Leave shell::
+
+$ deactivate
