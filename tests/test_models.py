@@ -17,6 +17,18 @@ def test_trick():
     t = trick.play_card(Card(CardSuit.SPADE, CardRank.THREE))
     assert t is Player.WEST
 
+    card = trick.step_back()
+    assert card == Card(CardSuit.SPADE, CardRank.THREE)
+    
+    card = trick.step_back()
+    assert card == Card(CardSuit.SPADE, CardRank.ACE)
+    
+    t = trick.play_card(Card(CardSuit.HEART, CardRank.ACE))
+    assert t is None
+    
+    t = trick.play_card(Card(CardSuit.HEART, CardRank.KING))
+    assert t is Player.EAST
+
 
 def test_Hand():
     SA = Card(CardSuit.SPADE, CardRank.ACE)
