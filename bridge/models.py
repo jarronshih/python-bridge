@@ -17,6 +17,19 @@ class CardSuit(Enum):
     def __str__(self):
         return self.value
 
+    def __eq__(self, other):
+        if other.__class__ in [CardSuit, Trump]:
+            return self.value == other.value
+        return NotImplemented
+
+    def __ne__(self, other):
+        if other.__class__ in [CardSuit, Trump]:
+            return self.value != other.value
+        return NotImplemented
+
+    def __hash__(self):
+        return hash(self.value)
+
 
 @unique
 class CardRank(IntEnum):
@@ -118,6 +131,19 @@ class Trump(Enum):
 
     def __repr__(self):
         return '<{}:{}>'.format(self.__class__.__name__, self.value)
+
+    def __eq__(self, other):
+        if other.__class__ in [CardSuit, Trump]:
+            return self.value == other.value
+        return NotImplemented
+
+    def __ne__(self, other):
+        if other.__class__ in [CardSuit, Trump]:
+            return self.value != other.value
+        return NotImplemented
+
+    def __hash__(self):
+        return hash(self.value)
 
 
 class Hand:

@@ -85,6 +85,19 @@ def test_Hand_duplicate_card():
         hand = Hand(cards=[SA, SA])
 
 
+def test_Trump_eq_CardSuit():
+    assert Trump.NO_TRUMP != CardSuit.SPADE
+    assert Trump.SPADE == CardSuit.SPADE
+    assert Trump.HEART == CardSuit.HEART
+    assert Trump.DIAMOND == CardSuit.DIAMOND
+    assert Trump.CLUB == CardSuit.CLUB
+    assert CardSuit.SPADE != Trump.NO_TRUMP
+    assert CardSuit.SPADE == Trump.SPADE
+    assert CardSuit.HEART == Trump.HEART
+    assert CardSuit.DIAMOND == Trump.DIAMOND
+    assert CardSuit.CLUB == Trump.CLUB
+
+
 def test_Board():
     SA = Card(CardSuit.SPADE, CardRank.ACE)
     SK = Card(CardSuit.SPADE, CardRank.KING)
