@@ -130,57 +130,65 @@ class Board(namedtuple('Board', ['north', 'east', 'south', 'west'])):
 
 class Trick:
     def __init__(self, trump, starting_player):
-        self.trick = {}
-        self.current_player = starting_player
+        self.trick = []
+        self.starting_player = starting_player
         self.trump = trump
-        self.winner = None
 
     def play_card(self, card):
-        self.trick[self.current_player] = card
-
-        if self.compare(card):
-            self.winner = self.current_player
-
-        self.current_player = self.current_player.next_player()
+        self.trick.append(card)
 
         if len(self.trick) == 4:
-            return self.winner
+            win_card = None
+            winner = None
+            current_player = self.starting_player 
+            for card in self.trick:
+                win_card, winner = self.compare(win_card, winner, card, current_player)
+                current_player = current_player.next_player() 
+            return winner
         else:
             return None
 
-    def compare(self, card):
-        if self.winner is None:
-            return True
+    def compare(self, win_card, winner, card, player):
+        if win_card is None:
+            return card, player
 
-        current_card = self.trick[self.winner]
-        if card.suit == current_card.suit:
-            return card.rank > current_card.rank
+        if card.suit == win_card.suit:
+            if card.rank > win_card.rank:
+                return card, player
+            else:
+                return win_card, winner
         elif card.suit == self.trump:
-            return True
+            return card, player
         else:
-            return False
-
+            return win_card, winner
+        
+    def trick_suit(self):
+        if len(self.trick) == 0:
+            return None
+        else:
+            return self.trick[0].suit
+        
+    def reverse(self):
+        if len(self.trick) == 0:
+            return None
+        else:
+            return self.trick.pop()
 
 class GameState:
     def __init__(self, board, trump, starting_player, goal):
         self.board = board
         self.trump = trump
-        self.previous_player = None
         self.next_player = starting_player
         self.previous_tricks = []
         self.current_trick = Trick(trump, starting_player)
         self.ns_trick_count = 0
     
     def candidate_card(self):
-        if current_trick is None:
-            return self.board[self.starting_player].candidate_card()
-        else:
-            current_suit = self.current_trick[0].suit;
-            return self.board[self.starting_Player].candidate_card(current_suit)
+        current_suit = self.current_trick.trick_suit()
+        return self.board.get_hand(self.next_player).candidate_card(current_suit)
     
     def play_card(self, card):
-        self.board[self.starting_player].play_card(card)
-        self.previous_player = next_player
+        self.board.get_hand(self.next_player).play_card(card)
         
         trick_winner = self.current_trick.play_card(card)
         if trick_winner is None:
@@ -193,6 +201,13 @@ class GameState:
                 self.ns_trick_count += 1
         
     def reverse(self):
-        if len(self.current_trick.trick) != 0:
+        last_card = self.current_trick.reverse()
+        if last_card is None:
+            self.current_trick = self.previous_tricks.pop()
+            self.next_player = self.current_trick.starting_player.previous_player()
+            last_card = self.current_trick.reverse()
+        else: 
+            self.next_player = self.next_player.previous_player()
+        self.next_player.add_card(last_card)
             
     

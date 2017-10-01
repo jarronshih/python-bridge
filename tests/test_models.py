@@ -7,19 +7,15 @@ def test_trick():
 
     t = trick.play_card(Card(CardSuit.SPADE, CardRank.KING))
     assert t is None
-    assert trick.winner == Player.EAST
 
     t = trick.play_card(Card(CardSuit.SPADE, CardRank.TWO))
     assert t is None
-    assert trick.winner == Player.EAST
 
     t = trick.play_card(Card(CardSuit.SPADE, CardRank.ACE))
     assert t is None
-    assert trick.winner == Player.WEST
 
     t = trick.play_card(Card(CardSuit.SPADE, CardRank.THREE))
     assert t is Player.WEST
-    assert trick.winner == Player.WEST
 
 
 def test_Hand():
