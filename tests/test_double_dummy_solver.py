@@ -18,7 +18,7 @@ def test_double_dummy_solver():
     assert double_dummy_solver(board, trump, starting_player) == result
 
 
-def test_gib2():
+def test_gib_smallcase():
     """
     Testcase from https://github.com/dds-bridge/ddd/blob/develop/test.gib
     Define as https://github.com/dds-bridge/ddd/blob/develop/giblib.h
@@ -31,8 +31,10 @@ def test_gib2():
     k9... jt... q...a a8...:--------------------
     """
     cases = [
-        ('k9... jt... q...a a8...', '1111 1111 1111 1111 1111'),
-        ('k9..2. jt...q q...a8 a8..3.', '2122 2121 2122 2222 1111'),
+        ('k9... jt... q...a a8...', '1111 1111 1111 1111 1111'),            # gib2
+        ('k9..2. jt...q q...a8 a8..3.', '2122 2121 2122 2222 1111'),        # gib3
+        ('k9..2.9 jt...q6 q...a85 a8..3.7', '2222 2121 2222 2222 2221'),    # gib4
+        ('k97..2.9 jt5...q6 q...a854 a86..3.7', '3333 3232 3333 3222 2221')  # gib5
     ]
 
     for gib_string, gib_result in cases:
