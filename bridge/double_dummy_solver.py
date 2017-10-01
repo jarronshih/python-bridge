@@ -1,5 +1,5 @@
 def double_dummy_solver(board, trump, starting_player):
-    pass
+    return double_dummy_solver_using_gameState(GameState(board, trump, starting_player))
 
 def double_dummy_solver_using_gameState(gameState):
     current_player = gameState.current_player

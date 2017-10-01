@@ -175,7 +175,7 @@ class Trick:
             return self.trick.pop()
 
 class GameState:
-    def __init__(self, board, trump, starting_player, goal):
+    def __init__(self, board, trump, starting_player):
         self.board = board
         self.trump = trump
         self.next_player = starting_player
