@@ -14,7 +14,13 @@ class CardSuit(IntEnum):
     CLUB = 0
 
     def __str__(self):
-        return self.value
+        card_map = {
+            CardSuit.SPADE: '♠',
+            CardSuit.HEART: '♡',
+            CardSuit.DIAMOND: '♢',
+            CardSuit.CLUB: '♣',
+        }
+        return card_map[self]
 
 
 @unique
@@ -75,7 +81,7 @@ class Card(namedtuple('Card', ['suit', 'rank'])):
         return '<{}>'.format(self.__str__())
 
     def __str__(self):
-        return '{}{}'.format(self.suit, self.rank)
+        return '{}{}'.format(self.suit.__str__(), self.rank.__str__())
 
 
 @unique
@@ -86,7 +92,16 @@ class Player(IntEnum):
     WEST = 3
 
     def __repr__(self):
-        return '<{}:{}>'.format(self.__class__.__name__, self.value)
+        return '<{}:{}>'.format(self.__class__.__name__, self.__str__())
+
+    def __str__(self):
+        player_map = {
+            Player.NORTH: 'N',
+            Player.SOUTH: 'S',
+            Player.EAST: 'E',
+            Player.WEST: 'W',
+        }
+        return player_map[self]
 
     def next_player(self):
         return self._next_player_map[self]
