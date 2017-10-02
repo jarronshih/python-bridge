@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import bisect
+
 from enum import IntEnum, unique
 from collections import namedtuple, defaultdict
 from operator import attrgetter
@@ -160,8 +162,7 @@ class Hand:
         return ' '.join(ret)
 
     def add_card(self, card):
-        self.cards[card.suit].append(card)
-        self.cards[card.suit].sort(key=attrgetter('rank'))
+        bisect.insort(self.cards[card.suit], card)
 
     def candidate_cards(self, suit=None):
 
