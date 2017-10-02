@@ -152,7 +152,7 @@ class Hand:
         ret = []
         for suit in CardSuit:
 
-            if len(self.cards[suit]) == 0:
+            if self.cards[suit]:
                 ret.append('{}-'.format(suit.value))
             else:
                 ret.append('{}{}'.format(suit.value, ''.join(map(lambda c: str(c.rank), self.cards[suit]))))
@@ -170,7 +170,7 @@ class Hand:
             for i in range(suit_len):
                 yield suit_cards[i]
 
-        if suit is not None and len(self.cards[suit]) > 0:
+        if suit is not None and self.cards[suit]:
             yield from suit_gen(self.cards[suit])
         else:
             for suit in CardSuit:
@@ -244,10 +244,10 @@ class Trick:
             return win_card, winner
 
     def trick_suit(self):
-        if len(self.trick) == 0:
-            return None
-        else:
+        try:
             return self.trick[0].suit
+        except IndexError:
+            return None
 
     def step_back(self):
         if len(self.trick) == 0:
