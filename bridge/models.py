@@ -89,22 +89,25 @@ class Player(IntEnum):
         return '<{}:{}>'.format(self.__class__.__name__, self.value)
 
     def next_player(self):
-        next_player = {
-            Player.NORTH: Player.EAST,
-            Player.EAST: Player.SOUTH,
-            Player.SOUTH: Player.WEST,
-            Player.WEST: Player.NORTH
-        }
-        return next_player[self]
+        return self._next_player_map[self]
 
     def previous_player(self):
-        next_player = {
-            Player.NORTH: Player.WEST,
-            Player.EAST: Player.NORTH,
-            Player.SOUTH: Player.EAST,
-            Player.WEST: Player.SOUTH
-        }
-        return next_player[self]
+        return self._previous_player_map[self]
+
+
+Player._next_player_map = {
+    Player.NORTH: Player.EAST,
+    Player.EAST: Player.SOUTH,
+    Player.SOUTH: Player.WEST,
+    Player.WEST: Player.NORTH
+}
+
+Player._previous_player_map = {
+    Player.NORTH: Player.WEST,
+    Player.EAST: Player.NORTH,
+    Player.SOUTH: Player.EAST,
+    Player.WEST: Player.SOUTH
+}
 
 
 @unique
