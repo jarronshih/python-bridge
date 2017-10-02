@@ -174,8 +174,7 @@ class Hand:
             yield from suit_gen(self.cards[suit])
         else:
             for suit in CardSuit:
-                if self.cards:
-                    yield from suit_gen(self.cards[suit])
+                yield from suit_gen(self.cards[suit])
 
     def play_card(self, card):
         self.cards[card.suit].remove(card)

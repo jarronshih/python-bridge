@@ -125,7 +125,7 @@ $ py.test tests.test_bridge
 
 To run a cProfile::
 
-$ py.test tests/test_double_dummy_solver.py --profile
+$ python -m cProfile -s "tottime" $(which py.test)
 
 
 Leave shell::
