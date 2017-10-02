@@ -169,14 +169,7 @@ class Board(namedtuple('Board', ['north', 'east', 'south', 'west'])):
     __slots__ = ()
 
     def get_hand(self, player):
-        player_hands = {
-            Player.NORTH: self.north,
-            Player.SOUTH: self.south,
-            Player.EAST: self.east,
-            Player.WEST: self.west
-        }
-        if player in player_hands:
-            return player_hands[player]
+        return getattr(self, player.name.lower())
 
     @classmethod
     def create_from_gib(cls, gib_string):
