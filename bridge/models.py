@@ -1,39 +1,26 @@
 # -*- coding: utf-8 -*-
-from enum import Enum, IntEnum, unique
+from enum import IntEnum, unique
 from collections import namedtuple, defaultdict
-import itertools
-from copy import deepcopy
 from operator import attrgetter
 
 
 @unique
-class CardSuit(Enum):
+class CardSuit(IntEnum):
     __order__ = 'SPADE HEART DIAMOND CLUB'
-    SPADE = '♠'
-    HEART = '♥'
-    DIAMOND = '♦'
-    CLUB = '♣'
+
+    SPADE = 3
+    HEART = 2
+    DIAMOND = 1
+    CLUB = 0
 
     def __str__(self):
         return self.value
-
-    def __eq__(self, other):
-        if other.__class__ in [CardSuit, Trump]:
-            return self.value == other.value
-        return NotImplemented
-
-    def __ne__(self, other):
-        if other.__class__ in [CardSuit, Trump]:
-            return self.value != other.value
-        return NotImplemented
-
-    def __hash__(self):
-        return hash(self.value)
 
 
 @unique
 class CardRank(IntEnum):
     __order__ = 'ACE KING QUEEN JACK TEN NINE EIGHT SEVEN SIX FIVE FOUR THREE TWO'
+
     ACE = 14
     KING = 13
     QUEEN = 12
@@ -92,11 +79,11 @@ class Card(namedtuple('Card', ['suit', 'rank'])):
 
 
 @unique
-class Player(Enum):
-    NORTH = 'N'
-    SOUTH = 'S'
-    EAST = 'E'
-    WEST = 'W'
+class Player(IntEnum):
+    NORTH = 0
+    SOUTH = 1
+    EAST = 2
+    WEST = 3
 
     def __repr__(self):
         return '<{}:{}>'.format(self.__class__.__name__, self.value)
@@ -121,29 +108,17 @@ class Player(Enum):
 
 
 @unique
-class Trump(Enum):
+class Trump(IntEnum):
     __order__ = 'NO_TRUMP SPADE HEART DIAMOND CLUB'
-    NO_TRUMP = 'NT'
-    SPADE = CardSuit.SPADE.value
-    HEART = CardSuit.HEART.value
-    DIAMOND = CardSuit.DIAMOND.value
-    CLUB = CardSuit.CLUB.value
+
+    NO_TRUMP = 4
+    SPADE = 3
+    HEART = 2
+    DIAMOND = 1
+    CLUB = 0
 
     def __repr__(self):
         return '<{}:{}>'.format(self.__class__.__name__, self.value)
-
-    def __eq__(self, other):
-        if other.__class__ in [CardSuit, Trump]:
-            return self.value == other.value
-        return NotImplemented
-
-    def __ne__(self, other):
-        if other.__class__ in [CardSuit, Trump]:
-            return self.value != other.value
-        return NotImplemented
-
-    def __hash__(self):
-        return hash(self.value)
 
 
 class Hand:
