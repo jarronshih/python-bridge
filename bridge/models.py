@@ -144,7 +144,6 @@ class Hand:
         self.cards = defaultdict(list)
         for card in cards:
             self.add_card(card)
-        self.played = []
 
     def __repr__(self):
         return '<{}:{}>'.format(self.__class__.__name__, self.__str__())
@@ -180,7 +179,6 @@ class Hand:
 
     def play_card(self, card):
         self.cards[card.suit].remove(card)
-        self.played.append(card)
 
 
 class Board(namedtuple('Board', ['north', 'east', 'south', 'west'])):
