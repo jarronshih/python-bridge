@@ -1,5 +1,7 @@
 from .models import Player, Trick
 
+PLAYER_NS = {Player.NORTH, Player.SOUTH}
+
 
 class GameState:
     def __init__(self, board, trump, starting_player):
@@ -24,7 +26,7 @@ class GameState:
             self.next_player = trick_winner
             self.previous_tricks.append(self.current_trick)
             self.current_trick = Trick(self.trump, trick_winner)
-            if trick_winner in [Player.NORTH, Player.SOUTH]:
+            if trick_winner in PLAYER_NS:
                 self.ns_trick_count += 1
 
     def step_back(self):
@@ -45,10 +47,9 @@ def double_dummy_solver(board, trump, starting_player):
 
 
 def double_dummy_solver_using_gameState(gameState):
-    next_player = gameState.next_player
     candidate_cards = gameState.candidate_cards()
 
-    if next_player in [Player.NORTH, Player.SOUTH]:
+    if gameState.next_player in PLAYER_NS:
         max_trick = 0
 
         # For end case
