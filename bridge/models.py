@@ -85,7 +85,7 @@ class Card(namedtuple('Card', ['suit', 'rank'])):
     __slot__ = ()
 
     def __repr__(self):
-        return '<{}{}>'.format(self.__class__.__name__, self.suit, self.rank)
+        return '<{}>'.format(self.__str__())
 
     def __str__(self):
         return '{}{}'.format(self.suit, self.rank)
@@ -169,14 +169,21 @@ class Hand:
 
     def add_card(self, card):
         self.cards[card.suit].append(card)
-        sorted(self.cards[card.suit], key=attrgetter('rank'))
+        self.cards[card.suit].sort(key=attrgetter('rank'))
 
     def candidate_cards(self, suit=None):
+
+        def suit_gen(suit_cards):
+            suit_len = len(suit_cards)
+            for i in range(suit_len):
+                yield suit_cards[i]
+
         if suit is not None and len(self.cards[suit]) > 0:
-            yield from deepcopy(self.cards[suit])
+            yield from suit_gen(self.cards[suit])
         else:
-            candidates = list(itertools.chain.from_iterable(self.cards.values()))
-            yield from deepcopy(candidates)
+            for suit in CardSuit:
+                if self.cards:
+                    yield from suit_gen(self.cards[suit])
 
     def play_card(self, card):
         self.cards[card.suit].remove(card)
