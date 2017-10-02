@@ -60,3 +60,12 @@ target/
 
 # pyenv python configuration file
 .python-version
+
+# for win machine
+.project
+.pydevproject
+*.prefs
+
+
+# remove cProfile
+prof/*

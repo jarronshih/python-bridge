@@ -101,13 +101,33 @@ Before you submit a pull request, check that it meets these guidelines:
 2. If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring, and add the
    feature to the list in README.rst.
-3. The pull request should work for Python 2.7, 3.3, 3.4, 3.5 and 3.6, and for PyPy. Check
+3. The pull request should work for Python 3.3, 3.4, 3.5 and 3.6, and for PyPy. Check
    https://travis-ci.org/jarronshih/python-bridge/pull_requests
    and make sure that the tests pass for all supported Python versions.
 
 Tips
 ----
 
+We use tox and py.test as unittest framework::
+
+$ tox -e py36
+
+
+Go into the shell::
+
+$ source .tox/py36/bin/activate
+
+
 To run a subset of tests::
 
 $ py.test tests.test_bridge
+
+
+To run a cProfile::
+
+$ py.test tests/test_double_dummy_solver.py --profile
+
+
+Leave shell::
+
+$ deactivate
