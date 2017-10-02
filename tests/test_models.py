@@ -38,32 +38,21 @@ def test_Hand():
     hand = Hand(cards=[SA, SK, HA, DA])
 
     # function candidate_cards
-    candidates = hand.candidate_cards()
-    assert len(candidates) == 4
-
-    candidates = hand.candidate_cards(CardSuit.SPADE)
-    assert len(candidates) == 2
-
-    candidates = hand.candidate_cards(CardSuit.HEART)
-    assert len(candidates) == 1
-
-    candidates = hand.candidate_cards(CardSuit.DIAMOND)
-    assert len(candidates) == 1
-
-    candidates = hand.candidate_cards(CardSuit.CLUB)
-    assert len(candidates) == 4
+    assert len(list(hand.candidate_cards())) == 4
+    assert len(list(hand.candidate_cards(CardSuit.SPADE))) == 2
+    assert len(list(hand.candidate_cards(CardSuit.HEART))) == 1
+    assert len(list(hand.candidate_cards(CardSuit.DIAMOND))) == 1
+    assert len(list(hand.candidate_cards(CardSuit.CLUB))) == 4
 
     # function play_card
     hand.play_card(HA)
-    candidates = hand.candidate_cards(CardSuit.HEART)
-    assert HA not in candidates
-    assert len(candidates) == 3
+    assert HA not in list(hand.candidate_cards(CardSuit.HEART))
+    assert len(list(hand.candidate_cards(CardSuit.HEART))) == 3
 
 
 def test_Hand_empty():
     hand = Hand()
-    candidates = hand.candidate_cards()
-    assert len(candidates) == 0
+    assert len(list(hand.candidate_cards())) == 0
 
     with pytest.raises(ValueError):
         hand.play_card(Card(CardSuit.SPADE, CardRank.ACE))

@@ -173,10 +173,10 @@ class Hand:
 
     def candidate_cards(self, suit=None):
         if suit is not None and len(self.cards[suit]) > 0:
-            return deepcopy(self.cards[suit])
+            yield from deepcopy(self.cards[suit])
         else:
             candidates = list(itertools.chain.from_iterable(self.cards.values()))
-            return deepcopy(candidates)
+            yield from deepcopy(candidates)
 
     def play_card(self, card):
         self.cards[card.suit].remove(card)

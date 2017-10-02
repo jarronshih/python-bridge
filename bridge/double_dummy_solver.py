@@ -48,11 +48,18 @@ def double_dummy_solver_using_gameState(gameState):
     next_player = gameState.next_player
     candidate_cards = gameState.candidate_cards()
 
-    if len(candidate_cards) == 0:
-        return gameState.ns_trick_count
-
     if next_player in [Player.NORTH, Player.SOUTH]:
         max_trick = 0
+
+        # For end case
+        try:
+            card = next(candidate_cards)
+            gameState.play_card(card)
+            max_trick = max(max_trick, double_dummy_solver_using_gameState(gameState))
+            gameState.step_back()
+        except StopIteration:
+            return gameState.ns_trick_count
+
         for card in candidate_cards:
             gameState.play_card(card)
             max_trick = max(max_trick, double_dummy_solver_using_gameState(gameState))
@@ -60,6 +67,16 @@ def double_dummy_solver_using_gameState(gameState):
         return max_trick
     else:
         min_trick = 13
+
+        # For end case
+        try:
+            card = next(candidate_cards)
+            gameState.play_card(card)
+            min_trick = min(min_trick, double_dummy_solver_using_gameState(gameState))
+            gameState.step_back()
+        except StopIteration:
+            return gameState.ns_trick_count
+
         for card in candidate_cards:
             gameState.play_card(card)
             min_trick = min(min_trick, double_dummy_solver_using_gameState(gameState))
