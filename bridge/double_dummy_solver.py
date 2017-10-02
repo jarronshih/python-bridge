@@ -46,7 +46,7 @@ def double_dummy_solver(board, trump, starting_player):
     return double_dummy_solver_using_gameState(GameState(board, trump, starting_player))
 
 
-def double_dummy_solver_using_gameState(gameState):
+def double_dummy_solver_using_gameState(gameState, alpha=0, beta=13):
     candidate_cards = gameState.candidate_cards()
 
     if gameState.next_player in PLAYER_NS:
@@ -56,14 +56,18 @@ def double_dummy_solver_using_gameState(gameState):
         try:
             card = next(candidate_cards)
             gameState.play_card(card)
-            max_trick = max(max_trick, double_dummy_solver_using_gameState(gameState))
+            max_trick = max(max_trick, double_dummy_solver_using_gameState(gameState, alpha=alpha, beta=beta))
             gameState.step_back()
         except StopIteration:
             return gameState.ns_trick_count
 
         for card in candidate_cards:
+            alpha = max(alpha, max_trick)
+            if alpha >= beta:
+                break
+
             gameState.play_card(card)
-            max_trick = max(max_trick, double_dummy_solver_using_gameState(gameState))
+            max_trick = max(max_trick, double_dummy_solver_using_gameState(gameState, alpha=alpha, beta=beta))
             gameState.step_back()
         return max_trick
     else:
@@ -73,13 +77,17 @@ def double_dummy_solver_using_gameState(gameState):
         try:
             card = next(candidate_cards)
             gameState.play_card(card)
-            min_trick = min(min_trick, double_dummy_solver_using_gameState(gameState))
+            min_trick = min(min_trick, double_dummy_solver_using_gameState(gameState, alpha=alpha, beta=beta))
             gameState.step_back()
         except StopIteration:
             return gameState.ns_trick_count
 
         for card in candidate_cards:
+            beta = min(beta, min_trick)
+            if alpha >= beta:
+                break
+
             gameState.play_card(card)
-            min_trick = min(min_trick, double_dummy_solver_using_gameState(gameState))
+            min_trick = min(min_trick, double_dummy_solver_using_gameState(gameState, alpha=alpha, beta=beta))
             gameState.step_back()
         return min_trick
