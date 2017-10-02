@@ -33,7 +33,7 @@ class GameState:
         last_card = self.current_trick.step_back()
         if last_card is None:
             self.current_trick = self.previous_tricks.pop()
-            if self.next_player == Player.NORTH or self.next_player == Player.SOUTH:
+            if self.next_player in PLAYER_NS:
                 self.ns_trick_count -= 1
             self.next_player = self.current_trick.starting_player.previous_player()
             last_card = self.current_trick.step_back()

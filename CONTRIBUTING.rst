@@ -125,7 +125,7 @@ $ py.test tests.test_bridge
 
 To run a cProfile::
 
-$ python -m cProfile -s "tottime" $(which py.test)
+$ python -m cProfile -s tottime $(which py.test)
 
 
 Leave shell::
